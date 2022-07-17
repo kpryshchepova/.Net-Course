@@ -37,20 +37,25 @@ namespace Task2
                 user1.SetPreviousResults(results, user2);
                 user2.SetPreviousResults(results, user1);
 
-                user1.WordsInformation.GetMainWord(Language, user1, user2);
-                user2.WordsInformation.MainWord = user1.WordsInformation.MainWord;
+                WordsInfo wordsInfoForUser1 = new WordsInfo();
+                WordsInfo wordsInfoForUser2 = new WordsInfo();
+
+                await wordsInfoForUser1.GetMainWord(Language, user1, user2, wordsInfoForUser1, wordsInfoForUser2);
+                wordsInfoForUser2.MainWord = wordsInfoForUser1.MainWord;
             
                 int index = 1;
-                string? word;
+                bool isNextWordCorrect;
                 while (true)
                 {
                     if (index % 2 != 0)
                     {
-                        if (!user2.WordsInformation.GetNextWord(Language, user2, user1)) break; else index++;
+                        isNextWordCorrect = await wordsInfoForUser2.GetNextWord(Language, user2, user1, wordsInfoForUser2, wordsInfoForUser1);
+                        if (!isNextWordCorrect) break; else index++;
                     }
                     else
                     {
-                        if (!user1.WordsInformation.GetNextWord(Language, user1, user2)) break; else index++;
+                        isNextWordCorrect = await wordsInfoForUser1.GetNextWord(Language, user1, user2, wordsInfoForUser1, wordsInfoForUser2);
+                        if (!isNextWordCorrect) break; else index++;
                     }
                 }
 
@@ -68,12 +73,12 @@ namespace Task2
                     if (result.Name1 == user2.NameId) allScoreForUser2 += result.Score1;
                     if (result.Name2 == user2.NameId) allScoreForUser2 += result.Score2;
                 }
-                DataForDB dataForDBForUser1 = new DataForDB(user1, user2, allScoreForUser1);
-                DataForDB dataForDBForUser2 = new DataForDB(user2, user1, allScoreForUser2);
-            
+                DataForDB dataForDBForUser1 = new DataForDB(user1, user2, allScoreForUser1, wordsInfoForUser1.MainWord);
+                DataForDB dataForDBForUser2 = new DataForDB(user2, user1, allScoreForUser2, wordsInfoForUser2.MainWord);
 
-                db.GameInfo.Add(dataForDBForUser1);
-                db.GameInfo.Add(dataForDBForUser2);
+
+                await db.GameInfo.AddAsync(dataForDBForUser1);
+                await db.GameInfo.AddAsync(dataForDBForUser2);
 
                 await db.SaveChangesAsync();
             }

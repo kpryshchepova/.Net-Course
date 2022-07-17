@@ -4,17 +4,11 @@
     {
         public string NameId { get; set; }
         public Score Score = new Score();
-        public WordsInfo WordsInformation = new WordsInfo();
         public List<SavedData> results = new List<SavedData>();
 
         public void GetUserName(ILanguage language, int number)
         {
-            while (true)
-            {
-                language.WriteName(number);
-                NameId = Console.ReadLine();
-                if (NameId.Length > 0 && new CheckData().CheckOnlyLetters(NameId, language)) break;
-            }
+            NameId = new ReadUserName().ReadName(language, number);
         }
 
         public void SetPreviousResults(List<SavedData> results, User user2)

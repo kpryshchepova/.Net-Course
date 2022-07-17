@@ -4,33 +4,37 @@
     {
         User User1 { get; set; }
         User User2 { get; set; }
+        WordsInfo WordsInfoForUser1 { get; set; }
+        WordsInfo WordsInfoForUser2 { get; set; }
         ILanguage Language { get; set; }
-        public ExtendedConsole(User user1, User user2, ILanguage language)
+        public ExtendedConsole(User user1, User user2, WordsInfo wordsInfoForUser1, WordsInfo wordsInfoForUser2, ILanguage language)
         {
             User1 = user1;
             User2 = user2;
             Language = language;
+            WordsInfoForUser1 = wordsInfoForUser1;
+            WordsInfoForUser2 = wordsInfoForUser2;
         }
-        public string? ReadLine()
+        public async Task<string?> ReadLine()
         {
             string? enteredString = Console.ReadLine();
             switch (enteredString)
             {
                 case "/show-words":
                     Language.GetAllWords(User1.NameId);
-                    if (User1.WordsInformation.WordList.Count == 0) { Language.NoData(); }
+                    if (WordsInfoForUser1.WordList.Count == 0) { Language.NoData(); }
                     else  {
-                        foreach (string word in User1.WordsInformation.WordList)
+                        foreach (string word in WordsInfoForUser1.WordList)
                         {
                             Console.WriteLine(word);
                         }
                     }
                     
                     Language.GetAllWords(User2.NameId);
-                    if (User2.WordsInformation.WordList.Count == 0) { Language.NoData(); }
+                    if (WordsInfoForUser2.WordList.Count == 0) { Language.NoData(); }
                     else
                     {
-                        foreach (string word in User2.WordsInformation.WordList)
+                        foreach (string word in WordsInfoForUser2.WordList)
                         {
                             Console.WriteLine(word);
                         }
@@ -59,10 +63,29 @@
                     return "";
 
                 case "/total-score":
-                    new DBService().GetAllScoreDataFromDB(Language);
+                    var result = await new DBService().GetAllScoreDataFromDBAsync(Language);
+
+                    if (result.Count == 0) Language.NoData();
+                    else
+                    {
+                        int count = 0;
+                        foreach (DataForDB record in result.FindAll(res => res.Name == User1.NameId))
+                        {
+                            count += record.AllScore;
+                        }
+                        Console.WriteLine($"{User1.NameId} - {count}");
+
+                        count = 0;
+                        foreach (DataForDB record in result.FindAll(res => res.Name == User2.NameId))
+                        {
+                            count += record.AllScore;
+                        }
+                        Console.WriteLine($"{User2.NameId} - {count}");
+                    }
+                        
                     return "";
 
-                default: 
+                default:
                     return enteredString;
             }
 

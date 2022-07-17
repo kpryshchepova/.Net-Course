@@ -9,11 +9,11 @@
         public string MainWord { get; set; }
 
         public DataForDB() {}
-        public DataForDB(User user1, User user2, int score)
+        public DataForDB(User user1, User user2, int score, string mainWord)
         {
             Name = user1.NameId;
             Player2 = user2.NameId;
-            MainWord = user1.WordsInformation.MainWord;
+            MainWord = mainWord;
             AllScore = score;
         }
 
