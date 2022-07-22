@@ -1,0 +1,165 @@
+﻿<Window x:Class="Employees.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Employees"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+
+    <Grid>
+        <TextBox x:Name="CityTextBox" 
+                 Text="{Binding CityFilter, Mode=TwoWay}" 
+                 HorizontalAlignment="Left" 
+                 Margin="104,71,0,0" 
+                 TextWrapping="Wrap" 
+                 VerticalAlignment="Top" 
+                 Width="120" 
+                 Height="24"/>
+        <TextBox x:Name="CountryTextBox" 
+                 Text="{Binding CountryFilter, Mode=TwoWay}" 
+                 HorizontalAlignment="Left" 
+                 Margin="261,71,0,0" 
+                 TextWrapping="Wrap" 
+                 VerticalAlignment="Top" 
+                 Width="120" 
+                 Height="24"/>
+        <TextBox x:Name="FirstNameTextBox" 
+                 Text="{Binding FirstNameFilter, Mode=TwoWay}" 
+                 HorizontalAlignment="Left" 
+                 Margin="104,24,0,0" 
+                 TextWrapping="Wrap" 
+                 VerticalAlignment="Top" 
+                 Width="120" 
+                 Height="24"/>
+        <TextBox x:Name="LastNameTextBox" 
+                 Text="{Binding LastNameFilter, Mode=TwoWay}" 
+                 HorizontalAlignment="Left" 
+                 Margin="261,24,0,0" 
+                 TextWrapping="Wrap" 
+                 VerticalAlignment="Top" 
+                 Width="120" 
+                 Height="24"/>
+        <TextBox x:Name="PatronymicTextBox" 
+                 Text="{Binding PatronymicFilter, Mode=TwoWay}" 
+                 HorizontalAlignment="Left" 
+                 Margin="418,24,0,0" 
+                 TextWrapping="Wrap" 
+                 VerticalAlignment="Top" 
+                 Width="120" 
+                 Height="24"/>
+
+        <DatePicker x:Name="BirthdayDatePicker" 
+                    SelectedDate="{Binding BirthdayFilter, Mode=TwoWay}" 
+                    SelectedDateFormat="Short" 
+                    HorizontalAlignment="Left"
+                    Margin="418,71,0,0" 
+                    VerticalAlignment="Top"
+                    Width="120"/>
+
+        <Button x:Name="ExportXMLButton" 
+                Content="Экспорт в XML" 
+                HorizontalAlignment="Left"
+                Margin="576,26,0,0"
+                VerticalAlignment="Top"
+                Width="120"/>
+        <Button x:Name="LoadFilteredData" 
+                Content="Загрузить отфильтрованные данные" 
+                HorizontalAlignment="Left" 
+                Margin="463,109,0,0"
+                VerticalAlignment="Top"
+                Width="233"/>
+        <Button x:Name="ExportExcelButton" 
+                Content="Экспорт в Excel" 
+                HorizontalAlignment="Left"
+                Margin="576,73,0,0"
+                VerticalAlignment="Top"
+                Width="120"/>
+        <Button x:Name="LoadData" 
+            Content="Загрузить данные" 
+            HorizontalAlignment="Left" 
+            Margin="104,109,0,0"
+            VerticalAlignment="Top"
+            Width="233" 
+            Command="{Binding Path=LoadDataCommand}"/>
+
+        <TextBlock HorizontalAlignment="Left" 
+                   Margin="104,3,0,0" 
+                   TextWrapping="Wrap" 
+                   VerticalAlignment="Top" 
+                   Width="120">
+            <Run Language="ru-ru" Text="Имя:"/>
+        </TextBlock>
+        <TextBlock HorizontalAlignment="Left" 
+                   Margin="261,3,0,0" 
+                   TextWrapping="Wrap"
+                   VerticalAlignment="Top" 
+                   Width="120">
+            <Run Language="ru-ru" Text="Фамилия:"/>
+        </TextBlock>
+        <TextBlock HorizontalAlignment="Left"
+                   Margin="418,3,0,0" 
+                   TextWrapping="Wrap" 
+                   VerticalAlignment="Top" 
+                   Width="120">
+            <Run Language="ru-ru" Text="Отчество:"/>
+        </TextBlock>
+        <TextBlock HorizontalAlignment="Left" 
+                   Margin="104,50,0,0" 
+                   TextWrapping="Wrap" 
+                   VerticalAlignment="Top"
+                   Width="120">
+            <Run Language="ru-ru" Text="Город:"/>
+        </TextBlock>
+        <TextBlock HorizontalAlignment="Left" 
+                   Margin="261,50,0,0"
+                   TextWrapping="Wrap" 
+                   VerticalAlignment="Top" 
+                   Width="120">
+            <Run Language="ru-ru" Text="Страна:"/>
+        </TextBlock>
+        <TextBlock HorizontalAlignment="Left"
+                   Margin="418,50,0,0" 
+                   TextWrapping="Wrap" 
+                   VerticalAlignment="Top" 
+                   Width="120">
+            <Run Language="ru-ru" Text="Дата рождения:"/>
+        </TextBlock>
+
+
+        <DataGrid ItemsSource="{Binding EmployeesCollection}" 
+                  Margin="104,134,92,10" 
+                  IsReadOnly="True"
+                  x:Name="phonesGrid" 
+                  AutoGenerateColumns="False" 
+                  HorizontalGridLinesBrush="DarkGray"
+                  RowBackground="LightGray"
+                  AlternatingRowBackground="White">
+
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Имя" 
+                                    Binding="{Binding Path=FirstName}" 
+                                    Width="90" />
+                <DataGridTextColumn Header="Фамилия" 
+                                    Binding="{Binding Path=LastName}" 
+                                    Width="100" />
+                <DataGridTextColumn Header="Отчество"
+                                    Binding="{Binding Path=Patronymic}"
+                                    Width="100" />
+                <DataGridTextColumn Header="Дата рождения" 
+                                    Binding="{Binding Path=Birthday}" 
+                                    Width="100" />
+                <DataGridTextColumn Header="Город"
+                                    Binding="{Binding Path=City}" 
+                                    Width="90" />
+                <DataGridTextColumn Header="Страна" 
+                                    Binding="{Binding Path=Country}" 
+                                    Width="90" />
+            </DataGrid.Columns>
+        </DataGrid>
+        
+
+
+    </Grid>
+
+</Window>
