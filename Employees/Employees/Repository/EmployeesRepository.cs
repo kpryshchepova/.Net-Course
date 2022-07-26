@@ -1,8 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Employees
@@ -10,11 +8,11 @@ namespace Employees
     
     public class EmployeesRepository : IRepository
     {
-        private ApplicationDBContext _db;
+        private ApplicationDbContext _db;
 
-        public EmployeesRepository(ApplicationDBContext applicationDBContext)
+        public EmployeesRepository(ApplicationDbContext applicationDbContext)
         {
-            _db = applicationDBContext;
+            _db = applicationDbContext;
         }
 
         public async Task InsertAsync(Employee data)

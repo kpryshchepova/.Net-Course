@@ -7,128 +7,217 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
 
-    <Grid>
-        <TextBox x:Name="CityTextBox" 
-                 Text="{Binding CityFilter, Mode=TwoWay}" 
-                 HorizontalAlignment="Left" 
-                 Margin="104,71,0,0" 
-                 TextWrapping="Wrap" 
-                 VerticalAlignment="Top" 
-                 Width="120" 
-                 Height="24"/>
-        <TextBox x:Name="CountryTextBox" 
-                 Text="{Binding CountryFilter, Mode=TwoWay}" 
-                 HorizontalAlignment="Left" 
-                 Margin="261,71,0,0" 
-                 TextWrapping="Wrap" 
-                 VerticalAlignment="Top" 
-                 Width="120" 
-                 Height="24"/>
-        <TextBox x:Name="FirstNameTextBox" 
-                 Text="{Binding FirstNameFilter, Mode=TwoWay}" 
-                 HorizontalAlignment="Left" 
-                 Margin="104,24,0,0" 
-                 TextWrapping="Wrap" 
-                 VerticalAlignment="Top" 
-                 Width="120" 
-                 Height="24"/>
-        <TextBox x:Name="LastNameTextBox" 
-                 Text="{Binding LastNameFilter, Mode=TwoWay}" 
-                 HorizontalAlignment="Left" 
-                 Margin="261,24,0,0" 
-                 TextWrapping="Wrap" 
-                 VerticalAlignment="Top" 
-                 Width="120" 
-                 Height="24"/>
-        <TextBox x:Name="PatronymicTextBox" 
-                 Text="{Binding PatronymicFilter, Mode=TwoWay}" 
-                 HorizontalAlignment="Left" 
-                 Margin="418,24,0,0" 
-                 TextWrapping="Wrap" 
-                 VerticalAlignment="Top" 
-                 Width="120" 
-                 Height="24"/>
+    <Grid Grid.IsSharedSizeScope="True">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="280" />
+        </Grid.RowDefinitions>
+        
+        <Grid Grid.Row="0" Margin="0,0,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
+                
+                <TextBlock Grid.Column="0" 
+                           HorizontalAlignment="Left" 
+                           Margin="105,3,0,0" 
+                           TextWrapping="Wrap" 
+                           VerticalAlignment="Top" 
+                           Width="120">
+                    <Run Language="ru-ru" Text="Имя:"/>
+                </TextBlock>
+                <TextBlock Grid.Column="1" 
+                           HorizontalAlignment="Left" 
+                           Margin="40,3,0,0" 
+                           TextWrapping="Wrap"
+                           VerticalAlignment="Top" 
+                           Width="120">
+                    <Run Language="ru-ru" Text="Фамилия:"/>
+                </TextBlock>
+                <TextBlock Grid.Column="2"
+                           HorizontalAlignment="Left"
+                           Margin="40,3,0,0" 
+                           TextWrapping="Wrap" 
+                           VerticalAlignment="Top" 
+                           Width="120">
+                    <Run Language="ru-ru" Text="Отчество:"/>
+                </TextBlock>
+            </Grid>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
+                <TextBox Grid.Column="0" 
+                         x:Name="FirstNameTextBox" 
+                         Text="{Binding FirstNameFilter, Mode=TwoWay}" 
+                         HorizontalAlignment="Left" 
+                         Margin="105,5,0,0" 
+                         TextWrapping="Wrap" 
+                         VerticalAlignment="Top" 
+                         Width="120" 
+                         Height="24"/>
+                <TextBox Grid.Column="1" 
+                         x:Name="LastNameTextBox" 
+                         Text="{Binding LastNameFilter, Mode=TwoWay}" 
+                         HorizontalAlignment="Left" 
+                         Margin="40,5,0,0" 
+                         TextWrapping="Wrap" 
+                         VerticalAlignment="Top" 
+                         Width="120" 
+                         Height="24"/>
+                <TextBox Grid.Column="2" 
+                         x:Name="PatronymicTextBox" 
+                         Text="{Binding PatronymicFilter, Mode=TwoWay}" 
+                         HorizontalAlignment="Left" 
+                         Margin="40,5,0,0" 
+                         TextWrapping="Wrap" 
+                         VerticalAlignment="Top" 
+                         Width="120" 
+                         Height="24"/>
+                <Button Grid.Column="3" 
+                        x:Name="ExportXMLButton" 
+                        Content="Экспорт в XML" 
+                        HorizontalAlignment="Left"
+                        Margin="40,5,0,0"
+                        VerticalAlignment="Top"
+                        Width="120"
+                        Command="{Binding Path=ExportToXmlFileCommand}"
+                        IsEnabled="{Binding Path=IsDataLoaded, Mode=TwoWay}"/>
+            </Grid>
+        </Grid>
+        
+        <Grid Grid.Row="1" Margin="0,0,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" 
+                           HorizontalAlignment="Left" 
+                           Margin="105,0,0,0" 
+                           TextWrapping="Wrap" 
+                           VerticalAlignment="Top"
+                           Width="120">
+                    <Run Language="ru-ru" Text="Город:"/>
+                </TextBlock>
+                <TextBlock Grid.Column="1" 
+                           HorizontalAlignment="Left" 
+                           Margin="40,0,0,0"
+                           TextWrapping="Wrap" 
+                           VerticalAlignment="Top" 
+                           Width="120">
+                    <Run Language="ru-ru" Text="Страна:"/>
+                </TextBlock>
+                <TextBlock Grid.Column="2" 
+                           HorizontalAlignment="Left"
+                           Margin="40,0,0,0" 
+                           TextWrapping="Wrap" 
+                           VerticalAlignment="Top" 
+                           Width="120">
+                    <Run Language="ru-ru" Text="Дата рождения:"/>
+                </TextBlock>
+            </Grid>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
+                <TextBox Grid.Column="0" 
+                         x:Name="CityTextBox" 
+                         Text="{Binding CityFilter, Mode=TwoWay}" 
+                         HorizontalAlignment="Left" 
+                         Margin="105,5,0,0" 
+                         TextWrapping="Wrap" 
+                         VerticalAlignment="Top" 
+                         Width="120" 
+                         Height="24"/>
+                <TextBox Grid.Column="1" 
+                         x:Name="CountryTextBox" 
+                         Text="{Binding CountryFilter, Mode=TwoWay}" 
+                         HorizontalAlignment="Left" 
+                         Margin="40,5,0,0" 
+                         TextWrapping="Wrap" 
+                         VerticalAlignment="Top" 
+                         Width="120" 
+                         Height="24"/>
 
-        <DatePicker x:Name="BirthdayDatePicker" 
-                    SelectedDate="{Binding BirthdayFilter, Mode=TwoWay}" 
-                    SelectedDateFormat="Short" 
-                    HorizontalAlignment="Left"
-                    Margin="418,71,0,0" 
+                <DatePicker Grid.Column="2" 
+                            x:Name="BirthdayDatePicker" 
+                            SelectedDate="{Binding BirthdayFilter, Mode=TwoWay}" 
+                            SelectedDateFormat="Short" 
+                            HorizontalAlignment="Left"
+                            Margin="40,5,0,0" 
+                            VerticalAlignment="Top"
+                            Width="120"/>
+                <Button Grid.Column="3" 
+                        x:Name="ExportExcelButton" 
+                        Content="Экспорт в Excel" 
+                        HorizontalAlignment="Left"
+                        Margin="40,5,0,0"
+                        VerticalAlignment="Top"
+                        Width="120"
+                        Command="{Binding Path=ExportToExcelFileCommand}"
+                        IsEnabled="{Binding IsDataLoaded, Mode=OneWay}"/>
+            </Grid>
+        </Grid>
+
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" 
+                    x:Name="LoadDataFromCsv" 
+                    Content="Загрузить данные из CSV файла" 
+                    HorizontalAlignment="Left" 
+                    Margin="105,5,0,0"
                     VerticalAlignment="Top"
-                    Width="120"/>
+                    Width="200" 
+                    Command="{Binding Path=LoadDataFromCsvCommand}"/>
+            <Button Grid.Column="1" 
+                    x:Name="LoadFilteredData" 
+                    Content="Загрузить данные из БД" 
+                    HorizontalAlignment="Left" 
+                    Margin="15,5,0,0"
+                    VerticalAlignment="Top"
+                    Width="150"
+                    Command="{Binding Path=LoadDataFromDbCommand}"/>
+            <Button Grid.Column="2" 
+                    x:Name="LoadData" 
+                    Content="Загрузить отфильтрованные данные" 
+                    HorizontalAlignment="Left" 
+                    Margin="15,5,0,0"
+                    VerticalAlignment="Top"
+                    Width="220"
+                    Command="{Binding Path=LoadFilteredDataCommand}"
+                    IsEnabled="{Binding IsDataLoaded, Mode=TwoWay}"/>
+        </Grid>
 
-        <Button x:Name="ExportXMLButton" 
-                Content="Экспорт в XML" 
-                HorizontalAlignment="Left"
-                Margin="576,26,0,0"
-                VerticalAlignment="Top"
-                Width="120"/>
-        <Button x:Name="LoadFilteredData" 
-                Content="Загрузить отфильтрованные данные" 
-                HorizontalAlignment="Left" 
-                Margin="463,109,0,0"
-                VerticalAlignment="Top"
-                Width="233"/>
-        <Button x:Name="ExportExcelButton" 
-                Content="Экспорт в Excel" 
-                HorizontalAlignment="Left"
-                Margin="576,73,0,0"
-                VerticalAlignment="Top"
-                Width="120"/>
-        <Button x:Name="LoadData" 
-            Content="Загрузить данные" 
-            HorizontalAlignment="Left" 
-            Margin="104,109,0,0"
-            VerticalAlignment="Top"
-            Width="233" 
-            Command="{Binding Path=LoadDataCommand}"/>
-
-        <TextBlock HorizontalAlignment="Left" 
-                   Margin="104,3,0,0" 
-                   TextWrapping="Wrap" 
-                   VerticalAlignment="Top" 
-                   Width="120">
-            <Run Language="ru-ru" Text="Имя:"/>
-        </TextBlock>
-        <TextBlock HorizontalAlignment="Left" 
-                   Margin="261,3,0,0" 
-                   TextWrapping="Wrap"
-                   VerticalAlignment="Top" 
-                   Width="120">
-            <Run Language="ru-ru" Text="Фамилия:"/>
-        </TextBlock>
-        <TextBlock HorizontalAlignment="Left"
-                   Margin="418,3,0,0" 
-                   TextWrapping="Wrap" 
-                   VerticalAlignment="Top" 
-                   Width="120">
-            <Run Language="ru-ru" Text="Отчество:"/>
-        </TextBlock>
-        <TextBlock HorizontalAlignment="Left" 
-                   Margin="104,50,0,0" 
-                   TextWrapping="Wrap" 
-                   VerticalAlignment="Top"
-                   Width="120">
-            <Run Language="ru-ru" Text="Город:"/>
-        </TextBlock>
-        <TextBlock HorizontalAlignment="Left" 
-                   Margin="261,50,0,0"
-                   TextWrapping="Wrap" 
-                   VerticalAlignment="Top" 
-                   Width="120">
-            <Run Language="ru-ru" Text="Страна:"/>
-        </TextBlock>
-        <TextBlock HorizontalAlignment="Left"
-                   Margin="418,50,0,0" 
-                   TextWrapping="Wrap" 
-                   VerticalAlignment="Top" 
-                   Width="120">
-            <Run Language="ru-ru" Text="Дата рождения:"/>
-        </TextBlock>
-
-
-        <DataGrid ItemsSource="{Binding EmployeesCollection}" 
-                  Margin="104,134,92,10" 
+        <DataGrid Grid.Row="3" 
+                  ItemsSource="{Binding EmployeesCollection}" 
+                  Margin="105,5,83,10" 
                   IsReadOnly="True"
                   x:Name="phonesGrid" 
                   AutoGenerateColumns="False" 

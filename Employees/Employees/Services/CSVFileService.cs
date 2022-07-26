@@ -2,17 +2,14 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Employees
 {
-    public class CSVFileService
+    public class CsvFileService
     {
         const string FILE_PATH = @"../../../EmployeesData.csv";
       
-        public async IAsyncEnumerable<Employee> LoadFromCSVFileAsync()
+        public async IAsyncEnumerable<Employee> LoadFromCsvFileAsync()
         {
             //StreamReader reader = null;
             const int BUFFER_SIZE = 1000;

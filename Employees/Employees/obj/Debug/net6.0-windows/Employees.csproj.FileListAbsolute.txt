@@ -51,3 +51,15 @@ D:\Pryshchepava\IBA\C# 5.0 and .Net Course\.Net\.Net-Course\Employees\Employees\
 D:\Pryshchepava\IBA\C# 5.0 and .Net Course\.Net\.Net-Course\Employees\Employees\bin\Debug\net6.0-windows\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
 D:\Pryshchepava\IBA\C# 5.0 and .Net Course\.Net\.Net-Course\Employees\Employees\bin\Debug\net6.0-windows\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
 D:\Pryshchepava\IBA\C# 5.0 and .Net Course\.Net\.Net-Course\Employees\Employees\obj\Debug\net6.0-windows\Employees.csproj.CopyComplete
+D:\Pryshchepava\IBA\C# 5.0 and .Net Course\.Net\.Net-Course\Employees\Employees\bin\Debug\net6.0-windows\Microsoft.Extensions.Configuration.dll
+D:\Pryshchepava\IBA\C# 5.0 and .Net Course\.Net\.Net-Course\Employees\Employees\bin\Debug\net6.0-windows\Microsoft.Extensions.Configuration.Binder.dll
+D:\Pryshchepava\IBA\C# 5.0 and .Net Course\.Net\.Net-Course\Employees\Employees\bin\Debug\net6.0-windows\Microsoft.Extensions.Configuration.EnvironmentVariables.dll
+D:\Pryshchepava\IBA\C# 5.0 and .Net Course\.Net\.Net-Course\Employees\Employees\bin\Debug\net6.0-windows\Microsoft.Extensions.Configuration.FileExtensions.dll
+D:\Pryshchepava\IBA\C# 5.0 and .Net Course\.Net\.Net-Course\Employees\Employees\bin\Debug\net6.0-windows\Microsoft.Extensions.Configuration.Json.dll
+D:\Pryshchepava\IBA\C# 5.0 and .Net Course\.Net\.Net-Course\Employees\Employees\bin\Debug\net6.0-windows\Microsoft.Extensions.FileProviders.Abstractions.dll
+D:\Pryshchepava\IBA\C# 5.0 and .Net Course\.Net\.Net-Course\Employees\Employees\bin\Debug\net6.0-windows\Microsoft.Extensions.FileProviders.Physical.dll
+D:\Pryshchepava\IBA\C# 5.0 and .Net Course\.Net\.Net-Course\Employees\Employees\bin\Debug\net6.0-windows\Microsoft.Extensions.FileSystemGlobbing.dll
+D:\Pryshchepava\IBA\C# 5.0 and .Net Course\.Net\.Net-Course\Employees\Employees\bin\Debug\net6.0-windows\appconfig.json
+D:\Pryshchepava\IBA\C# 5.0 and .Net Course\.Net\.Net-Course\Employees\Employees\bin\Debug\net6.0-windows\Microsoft.Office.Interop.Excel.dll
+D:\Pryshchepava\IBA\C# 5.0 and .Net Course\.Net\.Net-Course\Employees\Employees\bin\Debug\net6.0-windows\System.Data.OleDb.dll
+D:\Pryshchepava\IBA\C# 5.0 and .Net Course\.Net\.Net-Course\Employees\Employees\bin\Debug\net6.0-windows\runtimes\win\lib\net6.0\System.Data.OleDb.dll
