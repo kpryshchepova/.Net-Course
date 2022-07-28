@@ -15,9 +15,15 @@ namespace Employees
             _db = applicationDbContext;
         }
 
-        public async Task InsertAsync(Employee data)
+        //public async Task InsertAsync(Employee data)
+        //{
+        //    await _db.EmployeesData.AddAsync(data);
+        //    await _db.SaveChangesAsync();
+        //}
+
+        public async Task InsertAsync(IAsyncEnumerable<Employee> employeeData)
         {
-            await _db.EmployeesData.AddAsync(data);
+            await foreach (Employee employee in employeeData) await _db.EmployeesData.AddAsync(employee);
             await _db.SaveChangesAsync();
         }
 

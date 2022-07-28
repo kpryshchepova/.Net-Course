@@ -10,7 +10,14 @@ namespace Employees
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new ApplicationViewModel(new CsvFileService(), new ApplicationDbContext(), new ExcelFileService(), new XmlFileService());
+            DataContext = new ApplicationViewModel(
+                new CsvFileService(), 
+                new ApplicationDbContext(), 
+                new ExcelFileService(), 
+                new XmlFileService(), 
+                new SaveFileDialogService(),
+                new OpenFileDialogService()
+            );
 
         }
     }

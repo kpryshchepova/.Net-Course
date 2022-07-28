@@ -63,3 +63,5 @@ D:\Pryshchepava\IBA\C# 5.0 and .Net Course\.Net\.Net-Course\Employees\Employees\
 D:\Pryshchepava\IBA\C# 5.0 and .Net Course\.Net\.Net-Course\Employees\Employees\bin\Debug\net6.0-windows\Microsoft.Office.Interop.Excel.dll
 D:\Pryshchepava\IBA\C# 5.0 and .Net Course\.Net\.Net-Course\Employees\Employees\bin\Debug\net6.0-windows\System.Data.OleDb.dll
 D:\Pryshchepava\IBA\C# 5.0 and .Net Course\.Net\.Net-Course\Employees\Employees\bin\Debug\net6.0-windows\runtimes\win\lib\net6.0\System.Data.OleDb.dll
+D:\Pryshchepava\IBA\C# 5.0 and .Net Course\.Net\.Net-Course\Employees\Employees\bin\Debug\net6.0-windows\Microsoft.Bcl.AsyncInterfaces.dll
+D:\Pryshchepava\IBA\C# 5.0 and .Net Course\.Net\.Net-Course\Employees\Employees\bin\Debug\net6.0-windows\System.Linq.Async.dll

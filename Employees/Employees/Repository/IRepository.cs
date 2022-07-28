@@ -6,7 +6,8 @@ namespace Employees
 {
     public interface IRepository : IDisposable
     {
-        Task InsertAsync(Employee data);
+        //Task InsertAsync(Employee data);
+        Task InsertAsync(IAsyncEnumerable<Employee> employeeData);
         Task<IEnumerable<Employee>> GetEmployeesAsync();
     }
 }

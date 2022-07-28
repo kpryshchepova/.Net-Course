@@ -14,6 +14,8 @@ namespace Employees
         private CsvFileService _csvFileService;
         private ExcelFileService _excelFileService;
         private XmlFileService _xmlFileService;
+        private SaveFileDialogService _saveFileDialogService;
+        private OpenFileDialogService _openFileDialogService;
         private ApplicationDbContext _applicationDbContext;
         private IRepository _employeesRepository;
         private ICommand _loadDataFromCsvCommand;
@@ -26,9 +28,17 @@ namespace Employees
         public ICommand LoadDataFromCsvCommand => _loadDataFromCsvCommand;
         public ICommand LoadDataFromDbCommand => _loadDataFromDbCommand;
 
-        public ApplicationViewModel(CsvFileService csvFileService, ApplicationDbContext applicationDBContext, ExcelFileService excelFileService, XmlFileService xmlFileService)
+        public ApplicationViewModel(
+            CsvFileService csvFileService, 
+            ApplicationDbContext applicationDBContext,
+            ExcelFileService excelFileService, 
+            XmlFileService xmlFileService,
+            SaveFileDialogService saveFileDialogService,
+            OpenFileDialogService openFileDialogService)
         {
             IsDataLoaded = false;
+            _saveFileDialogService = saveFileDialogService;
+            _openFileDialogService = openFileDialogService;
             _excelFileService = excelFileService;
             _xmlFileService = xmlFileService;
             _applicationDbContext = applicationDBContext;
@@ -46,14 +56,19 @@ namespace Employees
             {
                 return _loadFilteredDataCommand ?? (_loadFilteredDataCommand = new RelayCommand(obj =>
                     {
+                        const int pageSize = 100;
                         var allEmployees = _applicationDbContext.EmployeesData.ToList();
+                        var totalRecords = allEmployees.Count;
+                        var numberOfPages = Math.Ceiling((double)totalRecords / pageSize);
                         var employeesFilteredData = allEmployees.Where(employee => 
                             (string.IsNullOrEmpty(_firstNameFilter) || employee.FirstName.ToLower().Equals(_firstNameFilter.ToLower()))
                             && (string.IsNullOrEmpty(_lastNameFilter) || employee.LastName.ToLower().Equals(_lastNameFilter.ToLower()))
                             && (string.IsNullOrEmpty(_patronymicFilter) || employee.Patronymic.ToLower().Equals(_patronymicFilter.ToLower()))
                             && (string.IsNullOrEmpty(_cityFilter) || employee.City.ToLower().Equals(_cityFilter.ToLower()))
                             && (string.IsNullOrEmpty(_countryFilter) || employee.Country.ToLower().Equals(_countryFilter.ToLower()))
-                            && (employee.Birthday.Date == _birthdayFilter.Date)).OrderBy(employee => employee.FirstName);
+                            && (employee.Birthday.Date == _birthdayFilter.Date)).OrderBy(employee => employee.FirstName).
+                            Skip((int)((numberOfPages - 1) * pageSize)).
+                            Take(pageSize);
 
                         _employees.Clear();
 
@@ -74,12 +89,16 @@ namespace Employees
                 {
                     try
                     {
-                        var path = "../../../Employees.xml";
-                        _xmlFileService.ExportToXmlFile(_employees, path);
-                        MessageBox.Show("XML file was successfully saved!");
+                        if (_saveFileDialogService.OpenDialogWindow())
+                        {
+                            _xmlFileService.ExportToXmlFile(_employees, $"{_saveFileDialogService.FilePath}.xml");
+                            MessageBox.Show("Файл сохранен");
+                        }
+                        
                     } 
                     catch (Exception ex) 
                     {
+                        MessageBox.Show("Произошла ошибка при загрузке данных!");
                         Console.WriteLine(ex);
                     }
                     
@@ -95,13 +114,16 @@ namespace Employees
                 {
                     try
                     {
-                        var path = "../../../Employees.xlsx";
-                        var dataTable = _excelFileService.ConvertToDataTable(_employees.ToList());
-                        _excelFileService.ExportToExcelFile(dataTable, path);
-                        MessageBox.Show("Excel file was successfully saved!");
+                        if (_saveFileDialogService.OpenDialogWindow())
+                        {
+                            var dataTable = _excelFileService.ConvertToDataTable(_employees.ToList());
+                            _excelFileService.ExportToExcelFile(dataTable, $"{_saveFileDialogService.FilePath}.xlsx");
+                            MessageBox.Show("Файл сохранен");
+                        }
                     }
                     catch (Exception ex)
                     {
+                        MessageBox.Show("Произошла ошибка при загрузке данных!");
                         Console.WriteLine(ex);
                     }
 
@@ -121,9 +143,11 @@ namespace Employees
                 }
 
                 IsDataLoaded = true;
+                
             }
             catch (Exception ex)
             {
+                MessageBox.Show("Произошла ошибка при загрузке данных!");
                 Console.WriteLine(ex);
             }
         }
@@ -132,17 +156,22 @@ namespace Employees
         {
             try
             {
-                _employees.Clear();
-                var employeesdata = _csvFileService.LoadFromCsvFileAsync();
-                await foreach (Employee employee in employeesdata)
+                if (_openFileDialogService.OpenDialogWindow())
                 {
-                    _employees.Add(employee);
-                    await _employeesRepository.InsertAsync(employee);
+                    _employees.Clear();
+                    var employeesdata = _csvFileService.LoadFromCsvFileAsync(_openFileDialogService.FilePath);
+                    await _employeesRepository.InsertAsync(employeesdata);
+                    await foreach (Employee employee in employeesdata)
+                    {
+                        _employees.Add(employee);
+
+                    }
+                    IsDataLoaded = true;
                 }
-                IsDataLoaded = true;
             }
             catch (Exception ex)
             {
+                MessageBox.Show("Произошла ошибка при обработке файла!");
                 Console.WriteLine(ex);
             }
         }
