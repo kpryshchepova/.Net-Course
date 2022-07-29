@@ -1,5 +1,0 @@
-{
-  "AppConfig": {
-    "DbConnection": "Server=(localdb)\\MSSQLLocalDB;Database=employeesdb;Trusted_Connection=True;"
-  }
-}
