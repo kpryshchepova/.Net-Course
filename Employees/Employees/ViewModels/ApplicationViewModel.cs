@@ -23,6 +23,7 @@ namespace Employees
         private RelayCommand _loadFilteredDataCommand;
         private RelayCommand _exportToXmlCommand;
         private RelayCommand _exportToExcelCommand;
+        private List<Employee> _employeeBuffer = new List<Employee>();
 
         public IEnumerable<Employee> EmployeesCollection => _employees;
         public ICommand LoadDataFromCsvCommand => _loadDataFromCsvCommand;
@@ -159,15 +160,27 @@ namespace Employees
                 if (_openFileDialogService.OpenDialogWindow())
                 {
                     _employees.Clear();
-                    var employeesdata = _csvFileService.LoadFromCsvFileAsync(_openFileDialogService.FilePath);
-                    await _employeesRepository.InsertAsync(employeesdata);
-                    await foreach (Employee employee in employeesdata)
+                    var BUFFER_SIZE = 1000;
+                    var counter = 0;
+                    IAsyncEnumerable<Employee> employeeData = _csvFileService.LoadFromCsvFileAsync(_openFileDialogService.FilePath);
+                    await foreach (var data in employeeData)
                     {
-                        _employees.Add(employee);
-
+                        _employeeBuffer.Add(data);
+                        _employees.Add(data);
+                        counter++;
+                        if (counter % BUFFER_SIZE == 0)
+                        {
+                            foreach (Employee employee in _employeeBuffer) { 
+                                await _employeesRepository.InsertAsync(employee);
+                                
+                            }
+                            _employeeBuffer.Clear();
+                            await _employeesRepository.SaveAsync();
+                        }
+                        
                     }
-                    IsDataLoaded = true;
                 }
+                IsDataLoaded = true;
             }
             catch (Exception ex)
             {

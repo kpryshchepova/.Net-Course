@@ -246,8 +246,6 @@
                                     Width="90" />
             </DataGrid.Columns>
         </DataGrid>
-        
-
 
     </Grid>
 

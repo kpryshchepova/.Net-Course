@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace Employees
 {
-    
     public class EmployeesRepository : IRepository
     {
+        
         private ApplicationDbContext _db;
 
         public EmployeesRepository(ApplicationDbContext applicationDbContext)
@@ -15,15 +15,12 @@ namespace Employees
             _db = applicationDbContext;
         }
 
-        //public async Task InsertAsync(Employee data)
-        //{
-        //    await _db.EmployeesData.AddAsync(data);
-        //    await _db.SaveChangesAsync();
-        //}
-
-        public async Task InsertAsync(IAsyncEnumerable<Employee> employeeData)
+        public async Task InsertAsync(Employee data)
         {
-            await foreach (Employee employee in employeeData) await _db.EmployeesData.AddAsync(employee);
+            await _db.EmployeesData.AddAsync(data);
+        }
+        public async Task SaveAsync()
+        {
             await _db.SaveChangesAsync();
         }
 
