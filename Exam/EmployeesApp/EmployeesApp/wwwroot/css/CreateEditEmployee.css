@@ -23,3 +23,12 @@
 .button-sec {
     display: flex;
 }
+
+.search-input,
+.search-btn {
+    display: inline-flex;
+}
+
+.create-sec {
+    margin: 0 30px;
+}

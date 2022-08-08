@@ -26,7 +26,7 @@
         <div class="col-8">
             @if (@Model == null)
             {
-                <form asp-action="Create" asp-controller="Employee" class="row g-3">
+                <form method="post" asp-action="Create" asp-controller="Employee" class="row g-3">
                 <div class="col-md-6">
                     <label asp-for="Name" class="form-label">Name</label>
                     <input required type="text" class="form-control" asp-for="Name">
@@ -57,7 +57,7 @@
             </form>
             } else
             {
-                <form asp-action="Edit" asp-controller="Employee" asp-route-id="@Model.Id" class="row g-3">
+                <form method="post" asp-action="Edit" asp-controller="Employee" asp-route-id="@Model.Id" class="row g-3">
                 <div class="col-md-6">
                     <label asp-for="Name" class="form-label">Name</label>
                     <input required type="text" class="form-control" asp-for="Name">
