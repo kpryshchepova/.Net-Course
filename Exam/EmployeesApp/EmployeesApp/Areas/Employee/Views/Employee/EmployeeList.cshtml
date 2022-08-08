@@ -1,4 +1,4 @@
-﻿
+﻿@model IEnumerable<EmployeesApp.Models.Employee>
 <!DOCTYPE html>
 
 <html lang="en">
@@ -11,7 +11,7 @@
     </head>
     <body>
         <div class="emp-header">
-            <h2>Employees</h2>
+            <h2>Employees List</h2>
         </div>
                 
         <div class="wrapper">
@@ -23,7 +23,7 @@
                     <button class="btn btn-primary" type="button">Search</button>
                 </div>
                 <div class="col">
-                    <a class="btn btn-primary create-btn" type="button" href="/CreateEditEmployee">Create Employee</a>
+                    <a class="btn btn-primary create-btn" type="button" asp-action="Create" asp-controller="Employee">Create Employee</a>
                 </div>
             </div>
         </div>
@@ -33,7 +33,7 @@
                 <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">First Name</th>
+                        <th scope="col">Name</th>
                         <th scope="col">Age</th>
                         <th scope="col">Speciality</th>
                         <th scope="col">Employement Date</th>
@@ -42,18 +42,22 @@
                 </thead>
 
                 <tbody>
+                @foreach (var employee in Model)
+                {
                     <tr>
-                        <th scope="row">1</th>
-                        <td>kate</td>
-                        <td>kate</td>
-                        <td>kate</td>
-                        <td>kate</td>
+                        <th scope="row">@employee.Id</th>
+                        <td>@employee.Name</td>
+                        <td>@employee.Age</td>
+                        <td>@employee.Speciality</td>
+                        <td>@employee.EmployementDate.ToShortDateString()</td>
                         <td>
                             <button class="btn btn-outline-primary table-btn" type="button">View Tasks</button>
-                            <button class="btn btn-outline-success table-btn" type="button">Edit</button>
+                            <a asp-action="Edit" asp-route-id="@employee.Id" asp-controller="Employee" class="btn btn-outline-success table-btn" type="button">Edit</a>
                             <button class="btn btn-outline-danger table-btn" type="button">Delete</button>
                         </td>
                     </tr>
+                }
+                
                 </tbody>
             </table>
         </div>
