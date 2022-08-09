@@ -1,19 +1,27 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace EmployeesApp.Areas.Todo.Controllers
 {
     [Area("Todo")]
     public class TodoController : Controller
     {
-        [Route("Todo")]
-        public IActionResult Todo()
+        ApplicationContext.ApplicationContext db;
+        public TodoController(ApplicationContext.ApplicationContext context)
         {
-            return View();
+            db = context;
+        }
+
+        [Route("Todo")]
+        public async Task<IActionResult> Todo()
+        {
+            return View(await db.Todos.ToListAsync());
         }
 
         [Route("CreateEditTodo")]
-        public IActionResult CreateEditTodo()
+        public async Task<IActionResult> CreateEditTodo()
         {
+            ViewData["Employees"] = await db.Employees.ToListAsync();
             return View();
         }
 
