@@ -6,17 +6,17 @@
         public string Name { get; set; }
         public string Description { get; set; }
         public bool IsCompleted { get; set; }
-        public Employee Employee { get; set; }
+        public int EmployeeId { get; set; }
 
         public Todo() { }
 
-        public Todo(int id, string name, string description, bool isCompleted, Employee employee)
+        public Todo(int id, string name, string description, bool isCompleted, int employeeId)
         {
             Id = id;
             Name = name;
             Description = description;
             IsCompleted = isCompleted;
-            Employee = employee;
+            EmployeeId = employeeId;
         }
     }
 }

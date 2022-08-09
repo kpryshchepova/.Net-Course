@@ -11,7 +11,13 @@
 </head>
 <body>
     <div class="emp-header">
-        <h2>Create/Edit Employee</h2>
+        @if (@Model == null)
+        {
+            <h2>Create Employee</h2>
+        } else
+        {
+            <h2>Edit Employee</h2>
+        }
     </div>
     <div class="row">
         <div class="col-4 avatar-sec">

@@ -11,7 +11,7 @@ namespace EmployeesApp.Areas.Employees.Controllers
     [Route("Employee")]
     public class EmployeeController : Controller
     {
-        IRepository<Employee> _employeesRepository;
+        private IRepository<Employee> _employeesRepository;
         public EmployeeController(IRepository<Employee> employeesRepository)
         {
             _employeesRepository = employeesRepository;
@@ -125,16 +125,6 @@ namespace EmployeesApp.Areas.Employees.Controllers
             }
 
             return NotFound();
-            //if (id != null)
-            //{
-            //    Employee employee = new Employee { Id = id.Value };
-            //    _employeesRepository.Delete(employee);
-
-            //    await db.SaveChangesAsync();
-            //    return RedirectToAction("EmployeeList");
-            //}
-            ////------------TODO ERROR-------------
-            //return NotFound();
         }
     }
 }

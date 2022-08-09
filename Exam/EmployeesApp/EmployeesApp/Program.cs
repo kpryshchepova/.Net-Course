@@ -10,6 +10,7 @@ builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlServe
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddTransient<IRepository<Employee>, EmployeeRepository>();
+builder.Services.AddTransient<IRepository<Todo>, TodoRepository>();
 
 var app = builder.Build();
 
